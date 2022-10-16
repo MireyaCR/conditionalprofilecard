@@ -7,6 +7,7 @@ import "../style/index.css";
     {
         includeCover: true, // if includeCover is true the algorithm should
         background: "https://images.unsplash.com/photo-1511974035430-5de47d3b95da", // this is the url of the image that will used as background for the profile cover
+        incluideAvatar: true,
         avatarURL: "https://randomuser.me/api/portraits/women/42.jpg", // this is the url for the profile avatar
         socialMediaPosition: "left", // social media bar position (left or right)
         
@@ -32,11 +33,20 @@ function render(variables = {}) {
   // if includeCover==false then we reset the cover code without the <img> tag to make the cover transparent.
   let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
   if (variables.includeCover == false) cover = "<div class='cover'></div>";
+  if (variables.includeCover == true)
+    cover =
+      "<div class='cover'><img src='https://images.unsplash.com/photo-1511974035430-5de47d3b95da' /></div>";
+
+  let photo = `<img src="${variables.avatarURL}" class="photo"/>`;
+  if (variables.includeAvatar == false) photo = "";
+  if (variables.includeAvatar == true)
+    photo =
+      "<img src='https://randomuser.me/api/portraits/women/42.jpg' class='photo'/>";
 
   // reset the website body with the new html output
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
             ${cover}
-          <img src="${variables.avatarURL}" class="photo" />
+ ${photo}
           <h1>${variables.name ? variables.name : "Lucy"} ${
     variables.lastname ? variables.lastname : "Boilett"
   }</h1>
@@ -71,6 +81,7 @@ window.onload = function() {
     includeCover: true,
     // this is the url of the image that will used as background for the profile cover
     background: "https://images.unsplash.com/photo-1511974035430-5de47d3b95da",
+    includeAvatar: true,
     // this is the url for the profile avatar
     avatarURL: "https://randomuser.me/api/portraits/women/42.jpg",
     // social media bar position (left or right)
